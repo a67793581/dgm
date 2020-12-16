@@ -11,11 +11,11 @@ DGM项目特点：
 4. 一次配置，**Windows、Linux、MacOs**皆可用
 
 # 目录
-- [1.目录结构](#1目录结构)
-- [2.快速使用](#2快速使用)
-- [3.管理命令](#3管理命令)
-- [4.使用Log](#4使用Log)
-- [5.常见问题](#5常见问题)
+- [1.目录结构](#1.目录结构)
+- [2.快速使用](#2.快速使用)
+- [3.管理命令](#3.管理命令)
+- [4.使用Log](#4.使用log)
+- [5.常见问题](#5.常见问题)
 
 
 ## 1.目录结构
@@ -79,7 +79,7 @@ ifconfig docker0
 ```
 用于填写`extra_hosts`容器访问宿主机的`hosts`地址
 
-## 4.使用Log
+## 4.使用log
 Log文件生成的位置依赖于conf下各log配置的值。
 ### 4.1 MySQL日志
 因为MySQL容器中的MySQL使用的是`mysql`用户启动，它无法自行在`/var/log`下的增加日志文件。所以，我们把MySQL的日志放在与data一样的目录，即项目的`mysql`目录下，对应容器中的`/var/lib/mysql/`目录。
@@ -91,7 +91,7 @@ log-error               = /var/lib/mysql/mysql.error.log
 
 
 
-## 5 常见问题
+## 5.常见问题
 ### 5.1 Docker容器时间
 容器时间在.env文件中配置`TZ`变量，所有支持的时区请看[时区列表·维基百科](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)或者[PHP所支持的时区列表·PHP官网](https://www.php.net/manual/zh/timezones.php)。
 
