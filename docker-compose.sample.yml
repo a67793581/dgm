@@ -16,7 +16,7 @@ services:
   go:
     image: golang:${GO_VERSION}-alpine${ALPINE_VERSION}
     ports:
-      - "${GO_PORT}:8808"
+      - "${GO_PORT}:8088"
     expose:
       - 8808
     volumes:
