@@ -3,7 +3,7 @@ DGM（Docker + Go + MySQL + Redis）一键生成golang常用环境
 
 > 使用前最好提前阅读一遍[目录](#目录)，以便快速上手，遇到问题也能及时排除。
 
-[**[GitHub地址]**](https://github.com/yeszao/dnmp)
+[**[GitHub地址]**](https://github.com/a67793581/dgm)
 DGM项目特点：
 1. `100%`开源
 2. `100%`遵循Docker标准
@@ -41,7 +41,7 @@ DGM项目特点：
     - `docker-compose 1.7.0+`
 2. `clone`项目：
     ```
-    $ git clone https://github.com/yeszao/dnmp.git
+    $ git clone https://github.com/a67793581/dgm.git
     ```
 3. 如果不是`root`用户，还需将当前用户加入`docker`用户组：
     ```
