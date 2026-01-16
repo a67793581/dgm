@@ -1,18 +1,27 @@
 version: "3"
 services:
-  mysql:
-    image: mysql:${MYSQL_VERSION}
+  mariadb:
+    image: mariadb:${MARIADB_VERSION}
     ports:
-      - "${MYSQL_HOST_PORT}:3306"
+      - "${MARIADB_HOST_PORT}:3306"
     volumes:
-      - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
-      - ${DATA_DIR}/mysql:/var/lib/mysql/:rw
+      - ${MARIADB_CONF_FILE}:/etc/mysql/conf.d/mariadb.cnf:ro
+      - ${DATA_DIR}/mariadb:/var/lib/mysql/:rw
     restart: always
     networks:
       - default
     environment:
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
+      MARIADB_USER: "${MARIADB_USER}"
+      MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
+      MARIADB_DATABASE: "${MARIADB_DATABASE}"
       TZ: "$TZ"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
   go:
     image: golang:${GO_VERSION}-alpine${ALPINE_VERSION}
     ports:
@@ -31,7 +40,7 @@ services:
       GOPROXY: ${GO_PROXY}
       TZ: "$TZ"
     depends_on:
-      - mysql
+      - mariadb
   redis:
     image: redis:${REDIS_VERSION}
     ports:
@@ -42,6 +51,20 @@ services:
     restart: always
     entrypoint: ["redis-server", "/etc/redis.conf"]
     environment:
+      TZ: "$TZ"
+    networks:
+      - default
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    ports:
+      - "${POSTGRES_HOST_PORT}:5432"
+    volumes:
+      - ${DATA_DIR}/postgres:/var/lib/postgresql/data/:rw
+    restart: always
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
       TZ: "$TZ"
     networks:
       - default
